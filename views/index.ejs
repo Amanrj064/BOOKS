@@ -1,9 +1,42 @@
-<header>
-  <h1>🌟 Neon Book Library</h1>
-  <% if (session && session.isAdmin) { %>
-    <a class="admin-btn" href="/admin">➕ Add Book</a>
-    <a class="admin-btn" href="/logout">Logout</a>
-  <% } else { %>
-    <a class="admin-btn" href="/login">Admin Login</a>
-  <% } %>
-</header>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>🌟 StudyEdu Book Library</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <header>
+    <h1>🌟 Book Library</h1>
+    <form method="GET" action="/">
+      <input type="text" name="q" placeholder="Search books...">
+      <select name="category">
+        <option value="">All</option>
+        <option value="Math">Math</option>
+        <option value="Science">Science</option>
+        <option value="English">English</option>
+        <option value="History">History</option>
+      </select>
+      <button type="submit">🔍</button>
+    </form>
+    <% if (session && session.isAdmin) { %>
+      <a class="admin-btn" href="/admin">➕ Add Book</a>
+      <a class="admin-btn" href="/logout">Logout</a>
+    <% } else { %>
+      <a class="admin-btn" href="/login">Admin Login</a>
+    <% } %>
+  </header>
+
+  <section class="book-list">
+    <% books.forEach((book, i) => { %>
+      <div class="book-card">
+        <h2><%= book.title %></h2>
+        <p><%= book.description %></p>
+        <p>📚 Category: <%= book.category %></p>
+        <p>👁 Views: <%= book.views || 0 %></p>
+        <a class="read-btn" href="/view/<%= i %>">📖 Read / Download</a>
+      </div>
+    <% }) %>
+  </section>
+</body>
+</html>
