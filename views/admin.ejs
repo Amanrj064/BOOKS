@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>➕ Add Book</title>
+  <meta charset="UTF-8">
+  <title>Admin Add Book</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
   <header>
-    <h1>➕ Add New Book</h1>
-    <a class="home-btn" href="/">🏠 Back to Library</a>
+    <h1>➕ Add Book</h1>
   </header>
-
   <form action="/admin" method="POST" class="book-form">
     <input type="text" name="title" placeholder="Book Title" required>
-    <input type="url" name="link" placeholder="Book Link (PDF/Online)" required>
-    <textarea name="description" placeholder="Description"></textarea>
+    <input type="text" name="link" placeholder="PDF/Book Link" required>
+    <textarea name="description" placeholder="Short description" required></textarea>
+    <select name="category" required>
+      <option value="Math">Math</option>
+      <option value="Science">Science</option>
+      <option value="English">English</option>
+      <option value="History">History</option>
+    </select>
     <button type="submit">Add Book</button>
   </form>
 </body>
