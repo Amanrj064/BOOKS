@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>📚 Neon Book Library</title>
+  <title>🌟 Neon Book Library</title>
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -11,7 +11,7 @@
     <a class="admin-btn" href="/admin">➕ Add Book</a>
   </header>
 
-  <div class="book-list">
+  <section class="book-list">
     <% books.forEach(book => { %>
       <div class="book-card">
         <h2><%= book.title %></h2>
@@ -19,6 +19,6 @@
         <a class="read-btn" href="<%= book.link %>" target="_blank">📖 Read / Download</a>
       </div>
     <% }) %>
-  </div>
+  </section>
 </body>
 </html>
