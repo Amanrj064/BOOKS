@@ -49,7 +49,7 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === 'admin' && password === '1234') {
+  if (username === 'admin' && password === 'amanraj@64') {
     req.session.isAdmin = true;
     res.redirect('/admin');
   } else {
