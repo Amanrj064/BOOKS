@@ -9,30 +9,47 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
 app.use(session({
-  secret: 'supersecretkey', // Change this to something strong!
+  secret: 'supersecretkey', 
   resave: false,
   saveUninitialized: true
 }));
 
-// Helper to load/save books
 const loadBooks = () => JSON.parse(fs.readFileSync('books.json', 'utf-8'));
 const saveBooks = (books) => fs.writeFileSync('books.json', JSON.stringify(books, null, 2));
 
-// Home page
+// Home page with search + category filter
 app.get('/', (req, res) => {
-  const books = loadBooks();
+  let books = loadBooks();
+  if (req.query.category) {
+    books = books.filter(b => b.category === req.query.category);
+  }
+  if (req.query.q) {
+    books = books.filter(b => b.title.toLowerCase().includes(req.query.q.toLowerCase()));
+  }
   res.render('index', { books, session: req.session });
 });
 
-// Login page
+// View counter + redirect
+app.get('/view/:index', (req, res) => {
+  const books = loadBooks();
+  const index = parseInt(req.params.index);
+  if (!isNaN(index) && books[index]) {
+    books[index].views = (books[index].views || 0) + 1;
+    saveBooks(books);
+    res.redirect(books[index].link);
+  } else {
+    res.send('Book not found');
+  }
+});
+
+// Login
 app.get('/login', (req, res) => {
   res.render('login');
 });
 
-// Handle login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === 'admin' && password === 'amanraj@64') { // Change password for security!
+  if (username === 'admin' && password === '1234') {
     req.session.isAdmin = true;
     res.redirect('/admin');
   } else {
@@ -40,35 +57,30 @@ app.post('/login', (req, res) => {
   }
 });
 
-// Logout
 app.get('/logout', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/');
   });
 });
 
-// Admin form
+// Admin add book
 app.get('/admin', (req, res) => {
-  if (!req.session.isAdmin) {
-    return res.redirect('/login');
-  }
+  if (!req.session.isAdmin) return res.redirect('/login');
   res.render('admin');
 });
 
-// Handle add book
 app.post('/admin', (req, res) => {
-  if (!req.session.isAdmin) {
-    return res.redirect('/login');
-  }
+  if (!req.session.isAdmin) return res.redirect('/login');
   const books = loadBooks();
   books.push({
     title: req.body.title,
     link: req.body.link,
-    description: req.body.description
+    description: req.body.description,
+    category: req.body.category,
+    views: 0
   });
   saveBooks(books);
   res.redirect('/');
 });
 
-// Start server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
