@@ -32,7 +32,7 @@ app.get('/login', (req, res) => {
 // Handle login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
-  if (username === 'admin' && password === '1234') { // Change password for security!
+  if (username === 'admin' && password === 'amanraj@64') { // Change password for security!
     req.session.isAdmin = true;
     res.redirect('/admin');
   } else {
