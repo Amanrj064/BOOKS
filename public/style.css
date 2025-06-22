@@ -1,38 +1,55 @@
 body {
   font-family: 'Arial', sans-serif;
-  background: #000;
+  background: linear-gradient(135deg, #000, #111);
   color: #fff;
   margin: 0;
   padding: 0;
+  min-height: 100vh;
 }
 
 header {
-  background: #111;
   padding: 20px;
   text-align: center;
+  position: sticky;
+  top: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
   box-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
 }
 
 header h1 {
-  font-size: 2em;
+  font-size: 2.5em;
   color: #0ff;
-  text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  text-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
+  animation: neon-glow 1.5s infinite alternate;
 }
 
-header a {
+@keyframes neon-glow {
+  from {
+    text-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  }
+  to {
+    text-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
+  }
+}
+
+header a.admin-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: 2px solid #0ff;
+  border-radius: 5px;
   color: #0ff;
   text-decoration: none;
   font-weight: bold;
-  background: #111;
-  padding: 8px 12px;
-  border: 1px solid #0ff;
-  border-radius: 4px;
   box-shadow: 0 0 10px #0ff;
+  transition: 0.3s;
 }
 
-header a:hover {
+header a.admin-btn:hover {
   background: #0ff;
   color: #000;
+  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
 }
 
 .book-list {
@@ -44,17 +61,28 @@ header a:hover {
 
 .book-card {
   background: #111;
-  border: 1px solid #0ff;
+  border: 2px solid #0ff;
   border-radius: 10px;
-  margin: 10px;
-  padding: 15px;
+  margin: 15px;
+  padding: 20px;
   width: 260px;
-  box-shadow: 0 0 10px #0ff, 0 0 20px #0ff;
+  text-align: center;
+  box-shadow: 0 0 20px #0ff;
+  animation: pulse 2s infinite alternate;
+}
+
+@keyframes pulse {
+  from {
+    box-shadow: 0 0 10px #0ff;
+  }
+  to {
+    box-shadow: 0 0 20px #0ff, 0 0 30px #0ff;
+  }
 }
 
 .book-card h2 {
   color: #0ff;
-  text-shadow: 0 0 5px #0ff;
+  text-shadow: 0 0 10px #0ff;
 }
 
 .book-card p {
@@ -63,46 +91,37 @@ header a:hover {
 
 .read-btn {
   display: inline-block;
-  padding: 8px 14px;
+  padding: 8px 16px;
   background: #0ff;
   color: #000;
-  border-radius: 4px;
+  border-radius: 5px;
   text-decoration: none;
+  font-weight: bold;
   box-shadow: 0 0 10px #0ff;
+  transition: 0.3s;
 }
 
 .read-btn:hover {
   background: #00cccc;
-  box-shadow: 0 0 20px #00cccc;
+  box-shadow: 0 0 20px #00cccc, 0 0 40px #00cccc;
 }
 
-.book-form {
-  max-width: 400px;
-  margin: 30px auto;
-  display: flex;
-  flex-direction: column;
-}
-
-.book-form input, .book-form textarea {
-  background: #111;
-  color: #0ff;
-  border: 1px solid #0ff;
-  border-radius: 4px;
-  padding: 10px;
-  margin: 5px 0;
-}
-
-.book-form button {
-  padding: 10px;
+.floating-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
   background: #0ff;
   color: #000;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #0ff;
+  padding: 15px;
+  border-radius: 50%;
+  font-size: 24px;
+  text-decoration: none;
+  box-shadow: 0 0 20px #0ff, 0 0 40px #0ff;
+  animation: float 2s infinite ease-in-out;
 }
 
-.book-form button:hover {
-  background: #00cccc;
-  box-shadow: 0 0 20px #00cccc;
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0); }
 }
